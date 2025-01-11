@@ -1,0 +1,4 @@
+package easyLeetCodeTasks
+
+class LeetCodeEasy {
+}
