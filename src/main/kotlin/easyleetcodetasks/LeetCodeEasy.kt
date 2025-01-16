@@ -1,4 +1,4 @@
-package easyLeetCodeTasks
+package easyleetcodetasks
 
 import kotlin.math.max
 
@@ -23,8 +23,7 @@ fun isPalindrome(x: Int): Boolean {
     else {
         var isPal = true
         for (i in 0..stringVer.length / 2) {
-            if (stringVer[i] != stringVer[stringVer.length - 1 - i])
-                isPal = false
+            if (stringVer[i] != stringVer[stringVer.length - 1 - i]) isPal = false
         }
         return isPal
     }
@@ -84,13 +83,7 @@ fun romanToIntUsingSwitch(s: String): Int {
 fun romanToInt(s: String): Int {
     var result = 0
     val dictionary = mapOf(
-        'I' to 1,
-        'V' to 5,
-        'X' to 10,
-        'L' to 50,
-        'C' to 100,
-        'D' to 500,
-        'M' to 1000
+        'I' to 1, 'V' to 5, 'X' to 10, 'L' to 50, 'C' to 100, 'D' to 500, 'M' to 1000
     )
 
     for (i in 0 until s.lastIndex) {
@@ -117,17 +110,12 @@ fun longestCommonPrefix(strs: Array<String>): String {
 fun isValidParentheses(s: String): Boolean {
     val stack = ArrayDeque<Char>()
     val pair = mapOf(
-        '(' to ')',
-        '{' to '}',
-        '[' to ']'
+        '(' to ')', '{' to '}', '[' to ']'
     )
     for (el in s) {
         if (pair.containsKey(el)) {
             stack.addLast(el)
-        } else if (stack.isEmpty()
-            || el != pair.getOrDefault(stack.removeLast(), "")
-        )
-            return false
+        } else if (stack.isEmpty() || el != pair.getOrDefault(stack.removeLast(), "")) return false
     }
     return stack.isEmpty()
 }
@@ -234,40 +222,11 @@ fun searchInsert(nums: IntArray, target: Int): Int {
 
     while (start <= end) {
         val middle = (end + start) / 2
-        if (nums[middle] > target)
-            end = middle - 1
-        else if (nums[middle] < target)
-            start = middle + 1
+        if (nums[middle] > target) end = middle - 1
+        else if (nums[middle] < target) start = middle + 1
         else return middle
     }
     return start
-}
-
-fun binarySearch(nums: IntArray, target: Int): Int {
-    var start = 0
-    var end = nums.lastIndex
-
-    while (start <= end) {
-        val middle = (end + start) / 2
-        if (nums[middle] == target) {
-            return middle
-        } else if (nums[middle] < target) {
-            start = middle + 1
-        } else end = middle - 1
-    }
-    return -1
-}
-
-fun binarySearchRecursion(nums: IntArray, target: Int, start: Int, end: Int): Int {
-    if (end >= start) {
-        val middle = (end + start) / 2
-        return if (nums[middle] == target) {
-            middle
-        } else if (nums[middle] < target) {
-            binarySearchRecursion(nums, target, middle + 1, end)
-        } else binarySearchRecursion(nums, target, start, middle - 1)
-    }
-    return -1
 }
 
 //58. Length of Last Word
@@ -310,4 +269,39 @@ fun addBinary(a: String, b: String): String {
 
     if (carry != 0) res.append(1)
     return res.reversed().toString()
+}
+
+//69. Sqrt of x
+fun mySqrt(x: Int): Int {
+    if (x == 0) return 0
+    if (x == 1) return 1
+    var start = 0
+    var end = x
+
+    while (start <= end) {
+        val middle = start + (end - start) / 2
+        if (middle < x / middle) start = middle + 1
+        else if (middle > x / middle) end = middle - 1
+        else return middle
+    }
+    return end
+}
+
+//70. Climbing Stairs
+fun climbStairsRecursion(n: Int): Int {
+    if (n < 2) return 1
+    return climbStairsRecursion(n - 1) + climbStairsRecursion(n - 2)
+}
+
+//70. Climbing Stairs
+fun climbStairsNoRecursion(n: Int): Int {
+    var prev = 0
+    var curr = 1
+    for (i in 1..n) {
+        val t = curr
+        curr += prev
+        prev = t
+    }
+    return curr
+
 }

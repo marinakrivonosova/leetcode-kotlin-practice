@@ -1,4 +1,4 @@
-package easyLeetCodeTasks
+package easyleetcodetasks
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -93,6 +93,12 @@ internal class LeetCodeEasyTest {
     }
 
     @Test
+    fun testRemoveElement() {
+        assertEquals(2, removeElement(intArrayOf(3,2,2,3), 3))
+        assertEquals(5, removeElement(intArrayOf(0,1,2,2,3,0,4,2), 2))
+    }
+
+    @Test
     fun removeDuplicates() {
         assertEquals(2, removeDuplicates(intArrayOf(1, 2, 2)))
         assertEquals(5, removeDuplicates(intArrayOf(0, 0, 1, 1, 1, 2, 2, 3, 3, 4)))
@@ -125,64 +131,6 @@ internal class LeetCodeEasyTest {
     }
 
     @Test
-    fun binarySearch() {
-        assertEquals(
-            4, binarySearch(
-                intArrayOf(
-                    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-                    13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-                    25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
-                    37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48,
-                    49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
-                    61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72,
-                    73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84,
-                    85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96,
-                    97, 98, 99, 100
-                ), 5
-            )
-        )
-
-        assertEquals(
-            15, binarySearch(
-                intArrayOf(
-                    1, 2, 3, 4, 5, 6, 7, 19, 20, 21, 22, 23, 24,
-                    25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
-                    37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48
-                ), 27
-            )
-        )
-        assertEquals(-1, binarySearch(intArrayOf(1, 3, 5, 6), 2))
-        assertEquals(2, searchInsert(intArrayOf(1, 3, 5, 6), 5))
-        assertEquals(0, binarySearch(intArrayOf(1, 3, 5, 6), 1))
-    }
-
-    @Test
-    fun binarySearchRecursion() {
-        val nums = intArrayOf(
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-            13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
-            25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
-            37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48,
-            49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
-            61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72,
-            73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84,
-            85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96,
-            97, 98, 99, 100
-        )
-        assertEquals(4, binarySearchRecursion(nums, 5, start = 0, end = nums.lastIndex))
-
-        val nums1 = intArrayOf(
-            1, 2, 3, 4, 5, 6, 7, 19, 20, 21, 22, 23, 24,
-            25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
-            37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48
-        )
-        assertEquals(15, binarySearchRecursion(nums1, 27, start = 0, end = nums1.lastIndex))
-        assertEquals(-1, binarySearchRecursion(intArrayOf(1, 3, 5, 6), 2, start = 0, end = 3))
-        assertEquals(2, binarySearchRecursion(intArrayOf(1, 3, 5, 6), 5, start = 0, end = 3))
-        assertEquals(0, binarySearchRecursion(intArrayOf(1, 3, 5, 6), 1, start = 0, end = 3))
-    }
-
-    @Test
     fun testLengthOfLastWord() {
         assertEquals(5, lengthOfLastWord("Hello World"))
         assertEquals(4, lengthOfLastWord("   fly me   to   the moon  "))
@@ -203,5 +151,32 @@ internal class LeetCodeEasyTest {
     fun testAddBinary() {
         assertEquals("100", addBinary(a = "11", b = "1"))
         assertEquals("10101", addBinary(a = "1010", b = "1011"))
+    }
+
+    @Test
+    fun mySqrt() {
+        assertEquals(2, mySqrt(4))
+        assertEquals(2, mySqrt(8))
+        assertEquals(0, mySqrt(0))
+        assertEquals(1, mySqrt(2))
+        assertEquals(1, mySqrt(1))
+    }
+
+    @Test
+    fun climbStairs() {
+        assertEquals(2, climbStairsRecursion(2))
+        assertEquals(3, climbStairsRecursion(3))
+        assertEquals(5, climbStairsRecursion(4))
+        assertEquals(1134903170, climbStairsRecursion(44))
+        assertEquals(1836311903, climbStairsRecursion(45))
+    }
+
+    @Test
+    fun climbStairsNoRecursion() {
+        assertEquals(2, climbStairsNoRecursion(2))
+        assertEquals(3, climbStairsNoRecursion(3))
+        assertEquals(5, climbStairsNoRecursion(4))
+        assertEquals(1134903170, climbStairsNoRecursion(44))
+        assertEquals(1836311903, climbStairsNoRecursion(45))
     }
 }
