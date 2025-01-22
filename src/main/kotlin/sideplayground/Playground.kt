@@ -1,5 +1,7 @@
 package sideplayground
 
+import java.util.*
+
 fun binarySearch(nums: IntArray, target: Int): Int {
     var start = 0
     var end = nums.lastIndex
@@ -86,4 +88,44 @@ fun binaryPowNoRecursion(a: Int, pow: Int): Int {
         }
     }
     return res
+}
+
+fun quicksort(arr: IntArray, lowIndex: Int, highIndex: Int) {
+    if (lowIndex >= highIndex) {
+        return
+    }
+    val pivotIndex = partition(arr, lowIndex = lowIndex, highIndex = highIndex)
+    quicksort(arr, lowIndex, pivotIndex - 1)
+    quicksort(arr, pivotIndex + 1, highIndex)
+}
+
+private fun partition(arr: IntArray, lowIndex: Int, highIndex: Int): Int {
+    val pivotIndex = Random().nextInt(highIndex - lowIndex) + lowIndex
+    var pivotIndexCounter = lowIndex
+    swap(arr, pivotIndex, highIndex)
+
+    for (i in lowIndex until highIndex) {
+        if (arr[i] < arr[highIndex]) {
+            swap(arr, pivotIndexCounter, i)
+            pivotIndexCounter++
+        }
+    }
+    swap(arr, pivotIndexCounter, highIndex)
+    return pivotIndexCounter
+}
+
+private fun swap(arr: IntArray, index1: Int, index2: Int) {
+    val temp = arr[index1]
+    arr[index1] = arr[index2]
+    arr[index2] = temp
+}
+
+fun bubbleSort(arr: IntArray) {
+    for (i in arr.indices) {
+        for (j in 0 until arr.size - i - 1) {
+            if (arr[j] > arr[j + 1]) {
+                swap(arr, j, j + 1)
+            }
+        }
+    }
 }

@@ -94,8 +94,8 @@ internal class LeetCodeEasyTest {
 
     @Test
     fun testRemoveElement() {
-        assertEquals(2, removeElement(intArrayOf(3,2,2,3), 3))
-        assertEquals(5, removeElement(intArrayOf(0,1,2,2,3,0,4,2), 2))
+        assertEquals(2, removeElement(intArrayOf(3, 2, 2, 3), 3))
+        assertEquals(5, removeElement(intArrayOf(0, 1, 2, 2, 3, 0, 4, 2), 2))
     }
 
     @Test
@@ -178,5 +178,58 @@ internal class LeetCodeEasyTest {
         assertEquals(5, climbStairsNoRecursion(4))
         assertEquals(1134903170, climbStairsNoRecursion(44))
         assertEquals(1836311903, climbStairsNoRecursion(45))
+    }
+
+    @Test
+    fun deleteDuplicates() {
+        assertEquals(
+            ListNode(1, ListNode(2, ListNode(3))),
+            deleteDuplicates(ListNode(1, ListNode(1, ListNode(2, ListNode(3, ListNode(3))))))
+        )
+
+        assertEquals(
+            ListNode(1, ListNode(2)),
+            deleteDuplicates(ListNode(1, ListNode(1, ListNode(2))))
+        )
+
+        assertEquals(
+            ListNode(1),
+            deleteDuplicates(ListNode(1))
+        )
+
+        assertEquals(
+            null,
+            deleteDuplicates(null)
+        )
+    }
+
+    @Test
+    fun mergeSortedArrays() {
+        val arr1 = intArrayOf(1, 2, 3, 0, 0)
+        val arr2 = intArrayOf(3, 4)
+        mergeSortedArrays(arr1, 3, arr2, 2)
+        assertArrayEquals(intArrayOf(1, 2, 3, 3, 4), arr1)
+
+        val arr3 = intArrayOf(0)
+        val arr4 = intArrayOf(1)
+        mergeSortedArrays(arr3, 0, arr4, 1)
+        assertArrayEquals(intArrayOf(1), arr3)
+
+        val arr5 = intArrayOf(1)
+        val arr6 = intArrayOf(0)
+        mergeSortedArrays(arr5, 1, arr6, 0)
+        assertArrayEquals(intArrayOf(1), arr5)
+
+        val arr7 = intArrayOf(1, 2, 3, 0, 0, 0)
+        val arr8 = intArrayOf(2, 5, 6)
+        mergeSortedArrays(arr7, 3, arr8, 3)
+        assertArrayEquals(intArrayOf(1, 2, 2, 3, 5, 6), arr7)
+
+        val arr9 = intArrayOf(2, 0)
+        val arr10 = intArrayOf(1)
+        mergeSortedArrays(arr9, 1, arr10, 1)
+        assertArrayEquals(intArrayOf(1, 2), arr9)
+
+
     }
 }

@@ -1,6 +1,7 @@
 package sideplayground
 
 import easyleetcodetasks.searchInsert
+import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -105,5 +106,31 @@ internal class PlaygroundTest {
         assertEquals(256, binaryPowNoRecursion(2, 8))
         assertEquals(2401, binaryPowNoRecursion(7, 4))
         assertEquals(32, binaryPowNoRecursion(2, 5))
+    }
+
+    @Test
+    fun quicksort() {
+        val arr1 = intArrayOf(2, 5, 4, 3, 1)
+        quicksort(arr1, 0, 4)
+        assertArrayEquals(intArrayOf(1, 2, 3, 4, 5), arr1)
+
+        val arr2 = intArrayOf(2, 5, -100, 4, 55, 0, 12, 551, 3, 21, 55, 77, 1)
+        quicksort(arr2, 0, arr2.size - 1)
+        assertArrayEquals(intArrayOf(-100, 0, 1, 2, 3, 4, 5, 12, 21, 55, 55, 77, 551), arr2)
+    }
+
+    @Test
+    fun bubbleSort() {
+        val arr1 = intArrayOf(2, 5, 4, 3, 1, 0)
+        bubbleSort(arr1)
+        assertArrayEquals(intArrayOf(0, 1, 2, 3, 4, 5), arr1)
+
+        val arr2 = intArrayOf(2, 5, -100, 4, 55, 0, 12, 551, 3, 21, 55, 77, 1)
+        bubbleSort(arr2)
+        assertArrayEquals(intArrayOf(-100, 0, 1, 2, 3, 4, 5, 12, 21, 55, 55, 77, 551), arr2)
+
+        val arr3 = intArrayOf(1, 2, 3, 5, 4, 0)
+        bubbleSort(arr3)
+        assertArrayEquals(intArrayOf(0, 1, 2, 3, 4, 5), arr3)
     }
 }

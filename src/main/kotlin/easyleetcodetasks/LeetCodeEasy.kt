@@ -303,5 +303,43 @@ fun climbStairsNoRecursion(n: Int): Int {
         prev = t
     }
     return curr
+}
 
+//83. Remove Duplicates from Sorted List
+fun deleteDuplicates(head: ListNode?): ListNode? {
+    var curr = head
+
+    while (curr?.next != null) {
+        if (curr.`val` == curr.next!!.`val`) {
+            curr.next = curr.next!!.next
+        } else {
+            curr = curr.next
+        }
+    }
+    return head
+}
+
+//88. Merge Sorted Array
+fun mergeSortedArrays(nums1: IntArray, m: Int, nums2: IntArray, n: Int) {
+    if (m == 0) nums1[0] = nums2[0]
+    var last = m + n - 1
+    var mCopy = m - 1
+    var nCopy = n - 1
+
+    while (mCopy >= 0 && nCopy >= 0) {
+        if (nums1[mCopy] > nums2[nCopy]) {
+            nums1[last] = nums1[mCopy]
+            mCopy--
+        } else {
+            nums1[last] = nums2[nCopy]
+            nCopy--
+        }
+        last--
+    }
+
+    while (nCopy >= 0) {
+        nums1[last] = nums2[nCopy]
+        nCopy--
+        last--
+    }
 }
