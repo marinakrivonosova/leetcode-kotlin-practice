@@ -229,7 +229,117 @@ internal class LeetCodeEasyTest {
         val arr10 = intArrayOf(1)
         mergeSortedArrays(arr9, 1, arr10, 1)
         assertArrayEquals(intArrayOf(1, 2), arr9)
+    }
 
+    @Test
+    fun inorderTraversal() {
+        assertEquals(listOf(1, 3, 2), inorderTraversal(TreeNode(1, null, TreeNode(2, TreeNode(3)))))
+        assertEquals(
+            listOf(4, 2, 6, 5, 7, 1, 3, 9, 8),
+            inorderTraversal(
+                TreeNode(
+                    1,
+                    left = TreeNode(
+                        2,
+                        left = TreeNode(4),
+                        right = TreeNode(
+                            5,
+                            left = TreeNode(6),
+                            right = TreeNode(7)
+                        )
+                    ),
+                    right = TreeNode(
+                        3,
+                        right = TreeNode(
+                            8,
+                            left = TreeNode(9)
+                        )
+                    )
+                )
+            )
+        )
 
+        assertEquals(emptyList<Int>(), inorderTraversal(null))
+        assertEquals(listOf(1), inorderTraversal(TreeNode(1)))
+    }
+
+    @Test
+    fun inorderTraversalIterative() {
+        assertEquals(listOf(1, 3, 2), inorderTraversalIterative(TreeNode(1, null, TreeNode(2, TreeNode(3)))))
+        assertEquals(
+            listOf(4, 2, 6, 5, 7, 1, 3, 9, 8),
+            inorderTraversal(
+                TreeNode(
+                    1,
+                    left = TreeNode(
+                        2,
+                        left = TreeNode(4),
+                        right = TreeNode(
+                            5,
+                            left = TreeNode(6),
+                            right = TreeNode(7)
+                        )
+                    ),
+                    right = TreeNode(
+                        3,
+                        right = TreeNode(
+                            8,
+                            left = TreeNode(9)
+                        )
+                    )
+                )
+            )
+        )
+
+        assertEquals(emptyList<Int>(), inorderTraversalIterative(null))
+        assertEquals(listOf(1), inorderTraversalIterative(TreeNode(1)))
+    }
+
+    @Test
+    fun isSameTree() {
+        assertEquals(
+            true, isSameTree(
+                TreeNode(1, null, TreeNode(2, TreeNode(3))),
+                TreeNode(1, null, TreeNode(2, TreeNode(3)))
+            )
+        )
+
+        assertEquals(
+            false, isSameTree(
+                TreeNode(1, null, TreeNode(2, TreeNode(3))),
+                TreeNode(1, null, TreeNode(2, TreeNode(3, TreeNode(4))))
+            )
+        )
+
+        assertEquals(
+            false, isSameTree(
+                TreeNode(1, null, TreeNode(2, TreeNode(3))),
+                TreeNode(1, null, TreeNode(2))
+            )
+        )
+
+        assertEquals(true, isSameTree(null, null))
+        assertEquals(false, isSameTree(null, TreeNode(1)))
+    }
+
+    @Test
+    fun isSymmetricTree() {
+        assertEquals(
+            true, isSymmetricTree(
+                TreeNode(
+                    1,
+                    left = TreeNode(
+                        2,
+                        left = TreeNode(3),
+                        right = TreeNode(4)
+                    ),
+                    right = TreeNode(
+                        2,
+                        left = TreeNode(4),
+                        right = TreeNode(3)
+                    )
+                )
+            )
+        )
     }
 }

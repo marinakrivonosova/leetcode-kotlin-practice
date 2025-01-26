@@ -1,5 +1,8 @@
 package easyleetcodetasks
 
+import java.util.*
+import kotlin.collections.ArrayDeque
+import kotlin.collections.set
 import kotlin.math.max
 
 // 1. Two Sum
@@ -342,4 +345,62 @@ fun mergeSortedArrays(nums1: IntArray, m: Int, nums2: IntArray, n: Int) {
         nCopy--
         last--
     }
+}
+
+data class TreeNode(var `val`: Int, val left: TreeNode? = null, var right: TreeNode? = null)
+
+//94. Binary Tree Inorder Traversal
+fun inorderTraversal(root: TreeNode?): List<Int> {
+    val result = mutableListOf<Int>()
+
+    fun inorder(root: TreeNode?) {
+        if (root == null) return
+        inorder(root.left)
+        result.add(root.`val`)
+        inorder(root.right)
+    }
+
+    inorder(root)
+    return result
+}
+
+fun inorderTraversalIterative(root: TreeNode?): List<Int> {
+    val result = mutableListOf<Int>()
+    val stack = Stack<TreeNode>()
+    var curr = root
+
+    while (curr != null || stack.isNotEmpty()) {
+        while (curr != null) {
+            stack.add(curr)
+            curr = curr.left
+        }
+        curr = stack.pop()
+        result.add(curr.`val`)
+        curr = curr.right
+    }
+    return result
+}
+
+//100. Same Tree
+fun isSameTree(p: TreeNode?, q: TreeNode?): Boolean {
+    return (p == null && q == null) ||
+            (p != null &&
+                    q != null &&
+                    q.`val` == p.`val` &&
+                    isSameTree(p.left, q.left) &&
+                    isSameTree(p.right, q.right))
+}
+
+//101. Symmetric Tree
+fun isSymmetricTree(root: TreeNode?): Boolean {
+    return root == null || isSymmetricTree(root.left, root.right)
+}
+
+fun isSymmetricTree(left: TreeNode?, right: TreeNode?): Boolean {
+    return left == null && right == null ||
+            left != null &&
+            right != null &&
+            left.`val` == right.`val` &&
+            isSymmetricTree(left.left, right.right) &&
+            isSymmetricTree(left.right, right.left)
 }
