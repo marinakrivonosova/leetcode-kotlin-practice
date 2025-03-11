@@ -342,4 +342,155 @@ internal class LeetCodeEasyTest {
             )
         )
     }
+
+    @Test
+    fun maxDepthBinaryTree() {
+        val tree1 = TreeNode(
+            3,
+            left = TreeNode(9),
+            right = TreeNode(
+                20,
+                left = TreeNode(15),
+                right = TreeNode(7)
+            )
+        )
+
+        assertEquals(3, maxDepth(tree1))
+
+        val tree2 = TreeNode(1, right = TreeNode(2))
+        assertEquals(2, maxDepth(tree2))
+    }
+
+    @Test
+    fun sortedArrayToBST() {
+        val expected1 = TreeNode(
+            0,
+            left = TreeNode(
+                -10,
+                right = TreeNode(-3)
+            ),
+            right = TreeNode(
+                5,
+                right = TreeNode(9)
+            )
+        )
+
+        val arr1 = intArrayOf(-10, -3, 0, 5, 9)
+
+        assertEquals(expected1, sortedArrayToBST(arr1))
+
+
+        val arr2 = intArrayOf(0)
+        assertEquals(TreeNode(0), sortedArrayToBST(arr2))
+    }
+
+    @Test
+    fun isBalancedTree() {
+        val tree1 = TreeNode(
+            3,
+            left = TreeNode(9),
+            right = TreeNode(
+                20,
+                left = TreeNode(15),
+                right = TreeNode(7)
+            )
+        )
+
+        val tree2 = TreeNode(
+            1,
+            left = TreeNode(
+                2,
+                left = TreeNode(
+                    3,
+                    left = TreeNode(4),
+                    right = TreeNode(4)
+                ),
+                right = TreeNode(3)
+            ),
+            right = TreeNode(2)
+        )
+
+        assertTrue(isBalanced(tree1))
+        assertFalse(isBalanced(tree2))
+
+        //[1,2,2,3,null,null,3,4,null,null,4]
+
+        val tree3 = TreeNode(
+            1,
+            left = TreeNode(2, left = TreeNode(3)),
+            right = TreeNode(
+                2,
+                right = TreeNode(
+                    3,
+                    left = TreeNode(
+                        4,
+                        right = TreeNode(4)
+                    )
+                )
+            )
+        )
+
+        assertFalse(isBalanced(tree3))
+    }
+
+    @Test
+    fun minDepth() {
+        val tree1 = TreeNode(
+            3,
+            left = TreeNode(9),
+            right = TreeNode(
+                20,
+                left = TreeNode(15),
+                right = TreeNode(7)
+            )
+        )
+
+        val tree2 = TreeNode(
+            2,
+            right = TreeNode(
+                3,
+                right = TreeNode(
+                    4,
+                    right = TreeNode(
+                        5,
+                        right = TreeNode(6)
+                    )
+                )
+            )
+        )
+
+        assertEquals(2, minDepth(tree1))
+        assertEquals(5, minDepth(tree2))
+    }
+
+    @Test
+    fun pathSum() {
+        val tree1 = TreeNode(
+            5,
+            left = TreeNode(
+                4,
+                left = TreeNode(
+                    11,
+                    left = TreeNode(7),
+                    right = TreeNode(2)
+                )
+            ),
+            right = TreeNode(
+                8,
+                left = TreeNode(13),
+                TreeNode(
+                    4,
+                    right = TreeNode(1)
+                )
+            )
+        )
+
+        val tree2 = TreeNode(1,
+            left = TreeNode(2),
+            right = TreeNode(3)
+        )
+
+        assertTrue(hasPathSum(tree1, 22))
+        assertFalse(hasPathSum(tree2, 5))
+    }
 }

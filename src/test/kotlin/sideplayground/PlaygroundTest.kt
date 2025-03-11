@@ -133,4 +133,14 @@ internal class PlaygroundTest {
         bubbleSort(arr3)
         assertArrayEquals(intArrayOf(0, 1, 2, 3, 4, 5), arr3)
     }
+
+    @Test
+    fun testEncodeDecode() {
+        val list1 = listOf("Hello+Hello", "Hi", "Wrd/")
+        //encode(list)
+        assertEquals(list1, decode(encode(list1)))
+
+        val list2 = listOf("Hellofcewdcsd+Hello", "Hifwedsfcds", "Wrdrty47ygfudh/")
+        assertEquals(list2, decode(encode(list2)))
+    }
 }

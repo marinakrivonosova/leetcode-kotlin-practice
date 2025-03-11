@@ -3,6 +3,7 @@ package easyleetcodetasks
 import java.util.*
 import kotlin.collections.ArrayDeque
 import kotlin.collections.set
+import kotlin.math.abs
 import kotlin.math.max
 
 // 1. Two Sum
@@ -347,7 +348,7 @@ fun mergeSortedArrays(nums1: IntArray, m: Int, nums2: IntArray, n: Int) {
     }
 }
 
-data class TreeNode(var `val`: Int, val left: TreeNode? = null, var right: TreeNode? = null)
+data class TreeNode(var `val`: Int, var left: TreeNode? = null, var right: TreeNode? = null)
 
 //94. Binary Tree Inorder Traversal
 fun inorderTraversal(root: TreeNode?): List<Int> {
@@ -403,4 +404,79 @@ fun isSymmetricTree(left: TreeNode?, right: TreeNode?): Boolean {
             left.`val` == right.`val` &&
             isSymmetricTree(left.left, right.right) &&
             isSymmetricTree(left.right, right.left)
+}
+
+//104. Maximum Depth of Binary Tree
+fun maxDepth(root: TreeNode?): Int {
+    return findHeight(root)
+}
+
+private fun findHeight(root: TreeNode?): Int {
+    if (root == null) return 0
+    val left = findHeight(root.left)
+    val right = findHeight(root.right)
+    return 1 + Math.max(left, right)
+}
+
+//108. Convert Sorted Array to Binary Search Tree
+fun sortedArrayToBST(nums: IntArray): TreeNode? {
+    return build(nums, 0, nums.size - 1)
+}
+
+private fun build(nums: IntArray, l: Int, r: Int): TreeNode? {
+    val mid = (r + l) / 2
+
+    if (l > r) return null;
+    return TreeNode(
+        `val` = nums[mid],
+        left = build(nums, l, mid - 1),
+        right = build(nums, mid + 1, r)
+    )
+}
+
+//110. Balanced Binary Tree
+fun isBalanced(root: TreeNode?): Boolean {
+    if (root == null) return true
+    return abs(height(root.left) - height(root.right)) < 2 &&
+            isBalanced(root.left) &&
+            isBalanced(root.right)
+
+}
+
+private fun height(root: TreeNode?): Int {
+    if (root == null) return 0
+    val left = height(root.left)
+    val right = height(root.right)
+    return 1 + Math.max(left, right)
+}
+
+/**
+ * Check that tree with a root in [node] is balanced and also returns height of that tree
+ */
+fun checkBalance(node: TreeNode?): Pair<Boolean, Int> = node?.let {
+    val (balancedL, heightL) = checkBalance(it.left)
+    val (balancedR, heightR) = checkBalance(it.right)
+    (balancedL && balancedR && abs(heightL - heightR) <= 1) to (1 + max(heightL, heightR))
+} ?: (true to 0)
+
+
+//111. Minimum Depth of Binary Tree
+fun minDepth(root: TreeNode?): Int {
+    if (root == null) return 0
+    val left = minDepth(root.left)
+    val right = minDepth(root.right)
+
+    if (left == 0) return right + 1
+    if (right == 0) return left + 1
+    return 1 + Math.min(left, right)
+}
+
+//112. Path Sum
+fun hasPathSum(root: TreeNode?, targetSum: Int): Boolean {
+    if (root == null) return false
+
+    if (root.left == null && root.right == null) return targetSum == root.`val`
+    return hasPathSum(root.right, targetSum - root.`val`)
+            || hasPathSum(root.left, targetSum - root.`val`)
+
 }

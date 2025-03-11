@@ -129,3 +129,50 @@ fun bubbleSort(arr: IntArray) {
         }
     }
 }
+
+fun encode(str: List<String>): String {
+    val result = mutableListOf<String>()
+    val builder = StringBuilder()
+    for (s in str) {
+        for (i in s.indices) {
+            if (s[i] == '+') {
+                builder.append("\\+")
+            } else builder.append(s[i])
+        }
+        result.add(builder.toString())
+        builder.clear()
+    }
+
+    return result.joinToString("+")
+}
+
+fun decode(str: String): List<String> {
+    val result = mutableListOf<String>()
+    val builder = StringBuilder()
+    var isEsc = (str[0] == '\\')
+    var i = 0
+    while (i < str.length) {
+        when (str[i]) {
+            '\\' -> {
+                isEsc = true
+            }
+
+            '+' -> {
+                if (isEsc) {
+                    builder.append(str[i])
+                    isEsc = false
+                } else {
+                    result.add(builder.toString())
+                    builder.clear()
+                }
+            }
+
+            else -> {
+                builder.append(str[i])
+            }
+        }
+        i++
+    }
+    result.add(builder.toString())
+    return result
+}
