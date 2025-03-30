@@ -478,5 +478,192 @@ fun hasPathSum(root: TreeNode?, targetSum: Int): Boolean {
     if (root.left == null && root.right == null) return targetSum == root.`val`
     return hasPathSum(root.right, targetSum - root.`val`)
             || hasPathSum(root.left, targetSum - root.`val`)
+}
 
+//125. Valid Palindrome
+fun isPalindrome(s: String): Boolean {
+    val stringBuilder = StringBuilder()
+    for (letter in s) {
+        if (letter.isLetter() || letter.isDigit()) stringBuilder.append(letter.lowercase())
+    }
+    val word = stringBuilder.toString()
+    val wordReversed = stringBuilder.reversed().toString()
+
+    return word.length <= 1 || word == wordReversed
+}
+
+fun isPalindromeClassicalApproach(s: String): Boolean {
+    val stringBuilder = StringBuilder()
+    for (letter in s) {
+        if (letter.isLetter() || letter.isDigit()) stringBuilder.append(letter.lowercase())
+    }
+
+    val word = stringBuilder.toString()
+    var l = 0
+    var r = word.length - 1
+    while (l <= r) {
+        if (word[l] != word[r]) return false
+        l++; r--
+    }
+    return true
+}
+
+//136. Single Number
+fun singleNumber(nums: IntArray): Int {
+    var res = 0
+    val map = mutableMapOf<Int, Int>()
+    for (i in nums) {
+        map[i] = if (map[i] == null) 1 else map.getValue(i) + 1
+    }
+
+    for (l in map.entries) {
+        if (l.value == 1) res = l.key
+    }
+
+    return res
+}
+
+fun singleNumberXOR(nums: IntArray): Int {
+    var res = 0
+    for (i in nums) {
+        res = res.xor(i)
+    }
+
+    return res
+}
+
+//121. Best Time to Buy and Sell Stock
+fun maxProfit(prices: IntArray): Int {
+    var maxDiff = 0
+    var buy = prices[0]
+    for (i in 1 until prices.size) {
+        if (buy > prices[i]) buy = prices[i]
+        if (prices[i] - buy > maxDiff) {
+            maxDiff = prices[i] - buy
+        }
+    }
+    return maxDiff
+}
+
+//141. Linked List Cycle (has no test)
+fun hasCycle(head: ListNode?): Boolean {
+    var currHead = head
+    var next = currHead?.next
+    while (currHead != null && next != null) {
+        if (currHead === next) return true
+        next = next.next
+        currHead = currHead.next?.next
+    }
+    return false
+}
+
+fun hasCycleWithSet(head: ListNode?): Boolean {
+    val set = HashSet<ListNode?>()
+    var node = head
+    while (node != null) {
+        if (set.contains(node)) return true
+        set.add(node)
+        node = node.next
+    }
+    return false
+}
+
+//1768. Merge Strings Alternately
+fun mergeAlternately(word1: String, word2: String): String {
+    val str = StringBuilder()
+    var index = 0
+
+    val longerWord = if (word1.length > word2.length) word1 else word2
+    while (index < word1.length && index < word2.length) {
+        str.append(word1[index])
+        str.append(word2[index])
+        index++
+    }
+    if (word1.length != word2.length) str.append(longerWord.substring(index))
+    return str.toString()
+}
+
+//144. Binary Tree Preorder Traversal
+fun preorderTraversal(root: TreeNode?): List<Int> {
+    if (root == null) return mutableListOf()
+
+    val values = mutableListOf<Int>()
+    values.add(root.`val`)
+    values.addAll(preorderTraversal(root.left))
+    values.addAll(preorderTraversal(root.right))
+
+    return values
+}
+
+//145. Binary Tree Postorder Traversal
+fun postorderTraversal(root: TreeNode?): List<Int> {
+    if (root == null) return mutableListOf()
+    val values = mutableListOf<Int>()
+    values.addAll(postorderTraversal(root.left))
+    values.addAll(postorderTraversal(root.right))
+    values.add(root.`val`)
+
+    return values
+}
+
+fun postorderTraversalWithStack(root: TreeNode?): List<Int> {
+    val result:LinkedList<Int> = LinkedList()
+
+    if (root == null) return result
+
+    val stack: Stack<TreeNode> = Stack()
+
+    stack.push(root)
+    while (stack.isNotEmpty()) {
+        val node = stack.pop()
+        result.addFirst(node.`val`)
+        if (node.left != null) {
+            stack.push(node.left)
+        }
+        if (node.right != null) {
+            stack.push(node.right)
+        }
+    }
+    return result
+}
+
+//1071. Greatest Common Divisor of Strings
+fun gcdOfStrings(str1: String, str2: String): String {
+    val t = StringBuilder()
+    var index = 0
+    var curMax = ""
+
+    while (index < str1.length && index < str2.length) {
+        val prefix = t.append(str1[index]).toString()
+        index++
+        if (str1.length % index != 0 || str2.length % index != 0) continue
+        val prefixSize = prefix.length
+        var k = prefixSize
+        var b = 0
+        var flag = true
+        while (k < str1.length) {
+            if (k + prefixSize > str1.length || prefix != str1.substring(k, k + prefixSize)) {
+                flag = false
+                break
+            }
+            k += prefixSize
+        }
+        while (b < str2.length) {
+            if (b + prefixSize > str2.length || prefix != str2.substring(b, b + prefixSize)) {
+                flag = false
+                break
+            }
+            b += prefixSize
+        }
+        if (flag && curMax.length < prefix.length) curMax = prefix
+    }
+
+    return curMax
+}
+
+
+//1431. Kids With the Greatest Number of Candies
+fun kidsWithCandies(candies: IntArray, extraCandies: Int): List<Boolean> {
+    val curMax = candies.max()
+    return candies.map { it + extraCandies >= curMax }
 }

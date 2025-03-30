@@ -2,7 +2,6 @@ package easyleetcodetasks
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import kotlin.test.assertTrue
 
 internal class LeetCodeEasyTest {
 
@@ -485,7 +484,8 @@ internal class LeetCodeEasyTest {
             )
         )
 
-        val tree2 = TreeNode(1,
+        val tree2 = TreeNode(
+            1,
             left = TreeNode(2),
             right = TreeNode(3)
         )
@@ -493,4 +493,72 @@ internal class LeetCodeEasyTest {
         assertTrue(hasPathSum(tree1, 22))
         assertFalse(hasPathSum(tree2, 5))
     }
+
+    @Test
+    fun testIfPalindrome() {
+        val word1 = "A man, a plan, a canal: Panama"
+        val word2 = "race a car"
+        val word3 = "0P"
+        val word4 = " "
+
+        assertTrue(isPalindrome(word1))
+        assertFalse(isPalindrome(word2))
+        assertFalse(isPalindrome(word3))
+        assertTrue(isPalindrome(word4))
+
+        assertTrue(isPalindromeClassicalApproach(word1))
+        assertFalse(isPalindromeClassicalApproach(word2))
+        assertFalse(isPalindromeClassicalApproach(word3))
+        assertTrue(isPalindromeClassicalApproach(word4))
+    }
+
+    @Test
+    fun testIfSingleNum() {
+        val arr1 = intArrayOf(2, 2, 1)
+        val arr2 = intArrayOf(4, 1, 2, 1, 2)
+        val arr3 = intArrayOf(1)
+
+        assertEquals(1, singleNumber(arr1))
+        assertEquals(4, singleNumber(arr2))
+        assertEquals(1, singleNumber(arr3))
+
+        assertEquals(1, singleNumberXOR(arr1))
+        assertEquals(4, singleNumberXOR(arr2))
+        assertEquals(1, singleNumberXOR(arr3))
+    }
+
+    @Test
+    fun testMaxProfit() {
+        val arr1 = intArrayOf(7, 1, 5, 3, 6, 4)
+        val arr2 = intArrayOf(7, 6, 4, 3, 1)
+
+        assertEquals(5, maxProfit(arr1))
+        assertEquals(0, maxProfit(arr2))
+    }
+
+    @Test
+    fun testMergeStrings() {
+        assertEquals("apbqcr", mergeAlternately("abc", "pqr"))
+        assertEquals("apbqrs", mergeAlternately("ab", "pqrs"))
+        assertEquals("apbqcd", mergeAlternately("abcd", "pq"))
+        assertEquals("pqr", mergeAlternately("", "pqr"))
+        assertEquals("aaaad", mergeAlternately("aaaad", ""))
+        assertEquals("", mergeAlternately("", ""))
+    }
+
+    @Test
+    fun testGcdOfStrings() {
+        assertEquals("",gcdOfStrings("ab", "aba"))
+        assertEquals("",gcdOfStrings("LEET", "CODE"))
+        assertEquals("ab",gcdOfStrings("ababab", "abab"))
+        assertEquals("abc",gcdOfStrings("abcabc", "abc"))
+        assertEquals("TAUXX",gcdOfStrings("TAUXXTAUXXTAUXXTAUXXTAUXX", "TAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXX"))
+    }
+
+    @Test
+    fun testKidsWithCandies() {
+        assertEquals(mutableListOf(true, true, true, false, true), kidsWithCandies(intArrayOf(2,3,5,1,3), 3))
+        assertEquals(mutableListOf(true, false, false, false, false), kidsWithCandies(intArrayOf(4, 2, 1, 1, 2), 1))
+    }
+
 }
