@@ -235,3 +235,78 @@ fun evenPalindrome(s: String, center: Int): String {
     }
     return s.substring(left + 1, right)
 }
+
+//151. Reverse Words in a String
+fun reverseWords(s: String): String {
+    val splited = s.trim().split(Regex("\\s+")).toTypedArray()
+    var start = 0
+    var end = splited.size - 1
+    while (start < end) {
+
+        val temp = splited[start]
+        splited[start] = splited[end]
+        splited[end] = temp
+
+        start++
+        end--
+    }
+    return splited.joinToString(" ")
+
+}
+
+fun reverseWordsStreams(s: String): String =
+    s.split(" ").filter { it.isNotBlank() }.reversed().joinToString(separator = " ")
+
+//238. Product of Array Except Self
+fun productExceptSelf(nums: IntArray): IntArray {
+    var prefix = 1
+    var suffix = 1
+    val result = Array(nums.size) { 0 }
+
+    for (i in nums.indices) {
+        result[i] = prefix
+        prefix *= nums[i]
+    }
+
+    for (i in nums.size - 1 downTo 0) {
+        result[i] *= suffix
+        suffix *= nums[i]
+    }
+
+    return result.toIntArray()
+}
+
+//334. Increasing Triplet Subsequence
+fun increasingTriplet(nums: IntArray): Boolean {
+    var prevMin1 = Int.MAX_VALUE
+    var prevMin2 = Int.MAX_VALUE
+    for (i in nums) {
+        if (i <= prevMin1) prevMin1 = i
+        else if (i <= prevMin2) prevMin2 = i
+        else return true
+    }
+    return false
+}
+
+//443. String Compression
+fun compress(chars: CharArray): Int {
+    var index = 0
+    var indexChar = 0
+
+    while (index < chars.size) {
+        var groupCounter = 0
+        val currChar = chars[index]
+
+        while (index < chars.size && currChar == chars[index]) {
+            groupCounter++
+            index++
+        }
+        chars[indexChar++] = currChar
+        if (groupCounter > 1) {
+            for (i in groupCounter.toString()) {
+                chars[indexChar++] = i
+            }
+        }
+    }
+    return indexChar
+}

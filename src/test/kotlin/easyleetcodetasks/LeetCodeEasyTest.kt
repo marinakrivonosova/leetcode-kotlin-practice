@@ -548,17 +548,53 @@ internal class LeetCodeEasyTest {
 
     @Test
     fun testGcdOfStrings() {
-        assertEquals("",gcdOfStrings("ab", "aba"))
-        assertEquals("",gcdOfStrings("LEET", "CODE"))
-        assertEquals("ab",gcdOfStrings("ababab", "abab"))
-        assertEquals("abc",gcdOfStrings("abcabc", "abc"))
-        assertEquals("TAUXX",gcdOfStrings("TAUXXTAUXXTAUXXTAUXXTAUXX", "TAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXX"))
+        assertEquals("", gcdOfStrings("ab", "aba"))
+        assertEquals("", gcdOfStrings("LEET", "CODE"))
+        assertEquals("ab", gcdOfStrings("ababab", "abab"))
+        assertEquals("abc", gcdOfStrings("abcabc", "abc"))
+        assertEquals(
+            "TAUXX",
+            gcdOfStrings("TAUXXTAUXXTAUXXTAUXXTAUXX", "TAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXX")
+        )
     }
 
     @Test
     fun testKidsWithCandies() {
-        assertEquals(mutableListOf(true, true, true, false, true), kidsWithCandies(intArrayOf(2,3,5,1,3), 3))
+        assertEquals(mutableListOf(true, true, true, false, true), kidsWithCandies(intArrayOf(2, 3, 5, 1, 3), 3))
         assertEquals(mutableListOf(true, false, false, false, false), kidsWithCandies(intArrayOf(4, 2, 1, 1, 2), 1))
+    }
+
+    @Test
+    fun testCanPlaceFlowers() {
+        assertTrue(canPlaceFlowers(intArrayOf(1, 0, 0, 0, 1), 1))
+        assertFalse(canPlaceFlowers(intArrayOf(1, 0, 0, 1), 1))
+        assertFalse(canPlaceFlowers(intArrayOf(1, 0, 0, 0, 0, 1), 2))
+        assertTrue(canPlaceFlowers(intArrayOf(0,0,1,0), 1))
+        assertTrue(canPlaceFlowers(intArrayOf(1,0,0,0,0,0,1), 2))
+    }
+
+    @Test
+    fun testReverseVowels() {
+        assertEquals("AceCreIm", reverseVowels("IceCreAm"))
+        assertEquals("leotcede", reverseVowels("leetcode"))
+
+        assertEquals("AceCreIm", reverseVowelsWithTwoIndexes("IceCreAm"))
+        assertEquals("leotcede", reverseVowelsWithTwoIndexes("leetcode"))
+    }
+
+    @Test
+    fun testMoveZeroes() {
+        val arr1 = intArrayOf(0,1,0,3,12)
+        moveZeroes(arr1)
+        assertArrayEquals(intArrayOf(1,3,12,0,0), arr1)
+
+        val arr2 = intArrayOf(1)
+        moveZeroes(arr2)
+        assertArrayEquals(intArrayOf(1), arr2)
+
+        val arr3 = intArrayOf(1, 0)
+        moveZeroes(arr3)
+        assertArrayEquals( intArrayOf(1, 0), arr3)
     }
 
 }

@@ -1,7 +1,6 @@
 package mediumleetcodetasks
 
-import org.junit.jupiter.api.Assertions.assertArrayEquals
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 internal class LeetCodeMediumTest {
@@ -189,4 +188,37 @@ internal class LeetCodeMediumTest {
         assertEquals("bb", longestPalindrome("abb"))
         assertEquals("aca", longestPalindrome("aacabdkacaa"))
     }
+
+    @Test
+    fun testReverseWords() {
+        assertEquals("blue is sky the", reverseWordsStreams("the sky is blue"))
+        assertEquals("blue is sky the", reverseWordsStreams("  the sky is blue  "))
+
+        assertEquals("blue is sky the", reverseWords("the sky is blue"))
+        assertEquals("blue is sky the", reverseWords("  the sky is blue  "))
+        assertEquals("example good a", reverseWords("a good   example"))
+    }
+
+    @Test
+    fun testProductExceptSelf() {
+        assertArrayEquals(intArrayOf(24, 12, 8, 6), productExceptSelf(intArrayOf(1, 2, 3, 4)))
+        assertArrayEquals(intArrayOf(0, 0, 9, 0, 0), productExceptSelf(intArrayOf(-1, 1, 0, -3, 3)))
+    }
+
+    @Test
+    fun testIncreasingTriplet() {
+        assertTrue(increasingTriplet(intArrayOf(1, 2, 3, 4, 5)))
+        assertFalse(increasingTriplet(intArrayOf(5, 4, 3, 2, 1)))
+        assertTrue(increasingTriplet(intArrayOf(2, 1, 5, 0, 4, 6)))
+        assertTrue(increasingTriplet(intArrayOf(20, 100, 10, 12, 5, 13)))
+    }
+
+    @Test
+    fun testCompressString() {
+        assertEquals(6, compress(charArrayOf('a', 'a', 'b', 'b', 'c', 'c', 'c')))
+        assertEquals(1, compress(charArrayOf('a')))
+        assertEquals(6, compress(charArrayOf('a','a','a','b', 'b','a','a')))
+        assertEquals(4, compress(charArrayOf('a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b')))
+    }
+
 }

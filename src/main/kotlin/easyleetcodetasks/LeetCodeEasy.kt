@@ -5,6 +5,7 @@ import kotlin.collections.ArrayDeque
 import kotlin.collections.set
 import kotlin.math.abs
 import kotlin.math.max
+import kotlin.text.set
 
 // 1. Two Sum
 fun twoSum(nums: IntArray, target: Int): IntArray {
@@ -607,7 +608,7 @@ fun postorderTraversal(root: TreeNode?): List<Int> {
 }
 
 fun postorderTraversalWithStack(root: TreeNode?): List<Int> {
-    val result:LinkedList<Int> = LinkedList()
+    val result: LinkedList<Int> = LinkedList()
 
     if (root == null) return result
 
@@ -667,3 +668,87 @@ fun kidsWithCandies(candies: IntArray, extraCandies: Int): List<Boolean> {
     val curMax = candies.max()
     return candies.map { it + extraCandies >= curMax }
 }
+
+//605. Can Place Flowers
+fun canPlaceFlowers(flowerbed: IntArray, n: Int): Boolean {
+    if (n == 0) return true
+    var planted = 0
+
+    var i = 0
+    while (i < flowerbed.size) {
+        if (flowerbed[i] == 0 &&
+            (i == 0 || flowerbed[i - 1] == 0) &&
+            (i == flowerbed.size - 1 || flowerbed[i + 1] == 0)
+        ) {
+            planted++
+            i++
+        }
+        i++
+        if (planted == n) return true
+    }
+    return false
+}
+
+//345. Reverse Vowels of a String
+fun reverseVowels(s: String): String {
+    val stringBuilder = StringBuilder()
+    val vowels: Stack<Char> = Stack()
+    val indices: Queue<Int> = LinkedList()
+
+    for (i in s.indices) {
+        stringBuilder.append(s[i])
+        if (isVowel(s[i])) {
+            vowels.push(s[i])
+            indices.add(i)
+        }
+    }
+    while (vowels.isNotEmpty()) {
+        val index = indices.poll()
+        val currChar = vowels.pop()
+        stringBuilder[index] = currChar
+    }
+
+    return stringBuilder.toString()
+}
+
+private fun isVowel(char: Char): Boolean {
+    val vowels = charArrayOf('a', 'A', 'e', 'E', 'o', 'O', 'i', 'I', 'u', 'U')
+    return vowels.contains(char)
+}
+
+fun reverseVowelsWithTwoIndexes(s: String): String {
+    val chars = s.toCharArray()
+    var start = 0
+    var end = s.length - 1
+    while (start < end) {
+        while (start < end && !isVowel(chars[start])) {
+            start++
+        }
+
+        while (start < end && !isVowel(chars[end])) {
+            end--
+        }
+        if (start < end) {
+            val temp = chars[start]
+            chars[start] = chars[end]
+            chars[end] = temp
+            start++
+            end--
+        }
+    }
+
+    return String(chars)
+}
+
+//283. Move Zeroes
+fun moveZeroes(nums: IntArray) {
+    var left = 0
+    for (i in nums.indices) {
+        val value = nums[i]
+        if (value != 0) {
+            nums[i] = 0
+            nums[left++] = value
+        }
+    }
+}
+
