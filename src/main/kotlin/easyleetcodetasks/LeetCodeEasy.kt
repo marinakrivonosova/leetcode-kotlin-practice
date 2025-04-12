@@ -662,6 +662,23 @@ fun gcdOfStrings(str1: String, str2: String): String {
     return curMax
 }
 
+fun gcdOfStrings2(str1: String, str2: String): String {
+    if (str2 + str1 != str1 + str2) return ""
+    return str1.substring(0, gcd(str1.length, str2.length))
+
+
+}
+
+private fun gcd(length1: Int, length2: Int): Int {
+    var l2 = length2
+    var l1 = length1
+    while (l2 != 0) {
+        val temp = l1 % l2
+        l1 = l2
+        l2 = temp
+    }
+    return l1
+}
 
 //1431. Kids With the Greatest Number of Candies
 fun kidsWithCandies(candies: IntArray, extraCandies: Int): List<Boolean> {
@@ -751,4 +768,192 @@ fun moveZeroes(nums: IntArray) {
         }
     }
 }
+
+//392. Is Subsequence
+fun isSubsequence(s: String, t: String): Boolean {
+    var sPointer = 0
+    var tPointer = 0
+
+    while (sPointer < s.length && tPointer < t.length) {
+        if (s[sPointer] == t[tPointer]) {
+            sPointer++
+        }
+        tPointer++
+    }
+    return sPointer == s.length
+}
+
+//643. Maximum Average Subarray I
+fun findMaxAverage(nums: IntArray, k: Int): Double {
+    var max = Int.MIN_VALUE
+    var sum = 0
+    var first = 0
+
+    for (i in nums.indices) {
+        sum += nums[i]
+        if (i - first + 1 == k) {
+            max = max(sum, max)
+            sum -= nums[first]
+            first++
+        }
+    }
+    return max.toDouble() / k
+}
+
+//1732. Find the Highest Altitude
+fun largestAltitude(gain: IntArray): Int {
+    var max = Int.MIN_VALUE
+    var prev = 0
+    for (i in gain) {
+        prev += i
+        max = max(prev, max)
+    }
+    return max(max, 0)
+}
+
+//724. Find Pivot Index
+fun pivotIndex(nums: IntArray): Int {
+    var right = nums.sum()
+    var left = 0
+
+    for (i in nums.indices) {
+        right -= nums[i]
+        if (left == right) return i
+        left += nums[i]
+    }
+    return -1
+}
+
+//118. Pascal's Triangle
+fun generate(numRows: Int): List<List<Int>> {
+    fun f(row: List<Int>): MutableList<Int> {
+        val res = mutableListOf(1)
+        for (i in 1 until row.size) {
+            res.add(row[i - 1] + row[i])
+        }
+        res.add(1)
+        return res
+    }
+
+    val result = mutableListOf(listOf(1))
+    repeat(numRows - 1) {
+        result.add(f(result.last()))
+    }
+    return result
+}
+
+fun generatePascalTriangle(numRows: Int): List<List<Int>> {
+    fun f(row: List<Int>): MutableList<Int> {
+        val res = mutableListOf(1)
+        res.addAll(row.zipWithNext { a, b -> a + b })
+        res.add(1)
+        return res
+    }
+
+    val result = mutableListOf(listOf(1))
+    repeat(numRows - 1) {
+        result.add(f(result.last()))
+    }
+    return result
+}
+
+// 119. Pascal's Triangle II
+fun getRow(rowIndex: Int): List<Int> {
+    fun f(row: List<Int>): MutableList<Int> {
+        val res = mutableListOf(1)
+        res.addAll(row.zipWithNext { a, b -> a + b })
+        res.add(1)
+        return res
+    }
+
+    var prev = listOf(1)
+    repeat(rowIndex) {
+        prev = f(prev)
+    }
+    return prev
+}
+
+fun getRowUsingFold(rowIndex: Int): List<Int> {
+    fun f(row: List<Int>): List<Int> {
+        val res = mutableListOf(1)
+        res.addAll(row.zipWithNext { a, b -> a + b })
+        res.add(1)
+        return res
+    }
+    return List(rowIndex) { ::f }.foldRight(initial = listOf(1)) { t, r -> t.invoke(r) }
+}
+
+fun getRowUsingFold2(rowIndex: Int): List<Int> =
+    (1..rowIndex).fold(initial = listOf(1)) { row, _ ->
+        val res = mutableListOf(1)
+        res.addAll(row.zipWithNext { a, b -> a + b })
+        res.add(1)
+        res
+    }
+
+//412. Fizz Buzz
+fun fizzBuzz(n: Int): List<String> {
+    val res = mutableListOf<String>()
+
+    for (i in 1..n) {
+        if (i % 15 == 0) res.add("FizzBuzz")
+        else if (i % 5 == 0) res.add("Buzz")
+        else if (i % 3 == 0) res.add("Fizz")
+        else res.add(i.toString())
+    }
+
+    return res
+}
+
+//202. Happy Number
+fun isHappy(n: Int): Boolean {
+    val visit = mutableSetOf<Int>()
+    var t = n
+    while (!visit.contains(t)) {
+        visit.add(t)
+        if (t == 1) return true
+        t = calculateNext(t)
+    }
+    return false
+
+}
+
+fun isHappyTwoPointers(n: Int): Boolean {
+    var slow = calculateNext(n)
+    var fast = calculateNext(calculateNext(n))
+
+    while (slow != fast) {
+        if (fast == 1) return true
+        slow = calculateNext(slow)
+        fast = calculateNext(calculateNext(fast))
+
+    }
+    return slow == 1
+}
+
+private fun calculateNext(num: Int): Int {
+    var sum = 0
+    var n = num
+    while (n > 0) {
+        val d = n % 10
+        sum += d * d
+        n /= 10
+    }
+    return sum
+}
+
+// 205. Isomorphic Strings
+fun isIsomorphic(s: String, t: String): Boolean {
+    val mapS = mutableMapOf<Char, Char>()
+    val mapT = mutableMapOf<Char, Char>()
+
+    for (i in s.indices) {
+        if (mapS.contains(s[i]) && mapS[s[i]] != t[i]
+            || mapT.contains(t[i]) && mapT[t[i]] != s[i]) return false
+        mapS[s[i]] = t[i]
+        mapT[t[i]] = s[i]
+    }
+    return true
+}
+
 

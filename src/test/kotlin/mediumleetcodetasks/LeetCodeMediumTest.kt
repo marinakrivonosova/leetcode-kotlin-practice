@@ -1,5 +1,6 @@
 package mediumleetcodetasks
 
+import easyleetcodetasks.pivotIndex
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -217,8 +218,72 @@ internal class LeetCodeMediumTest {
     fun testCompressString() {
         assertEquals(6, compress(charArrayOf('a', 'a', 'b', 'b', 'c', 'c', 'c')))
         assertEquals(1, compress(charArrayOf('a')))
-        assertEquals(6, compress(charArrayOf('a','a','a','b', 'b','a','a')))
+        assertEquals(6, compress(charArrayOf('a', 'a', 'a', 'b', 'b', 'a', 'a')))
         assertEquals(4, compress(charArrayOf('a', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b')))
+    }
+
+    @Test
+    fun testReturnMaxArea() {
+        assertEquals(49, maxArea(intArrayOf(1, 8, 6, 2, 5, 4, 8, 3, 7)))
+        assertEquals(1, maxArea(intArrayOf(1, 1)))
+    }
+
+    @Test
+    fun testMaxOperations() {
+        assertEquals(2, maxOperations(intArrayOf(1, 2, 3, 4), k = 5))
+        assertEquals(1, maxOperations(intArrayOf(3, 1, 3, 4, 3), k = 6))
+
+        assertEquals(2, maxOperationsWithHashMap(intArrayOf(1, 2, 3, 4), k = 5))
+        assertEquals(1, maxOperationsWithHashMap(intArrayOf(3, 1, 3, 4, 3), k = 6))
+    }
+
+    @Test
+    fun testMaxVowels() {
+        assertEquals(3, maxVowels("abciiidef", 3))
+        assertEquals(2, maxVowels("aeiou", 2))
+        assertEquals(2, maxVowels("leetcode", 3))
+
+        assertEquals(3, maxVowelsWithQueue("abciiidef", 3))
+        assertEquals(2, maxVowelsWithQueue("aeiou", 2))
+        assertEquals(2, maxVowelsWithQueue("leetcode", 3))
+    }
+
+    @Test
+    fun testLongestOnes() {
+        assertEquals(6, longestOnes(intArrayOf(1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0), 2))
+        assertEquals(10, longestOnes(intArrayOf(0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1), 3))
+    }
+
+    @Test
+    fun testIntToRoman() {
+        assertEquals("LVIII", intToRoman(58))
+        assertEquals("MCMXCIV", intToRoman(1994))
+        assertEquals("MMMDCCXLIX", intToRoman(3749))
+
+        assertEquals("LVIII", intToRomanV2(58))
+        assertEquals("MCMXCIV", intToRomanV2(1994))
+        assertEquals("MMMDCCXLIX", intToRomanV2(3749))
+
+        assertEquals("LVIII", intToRomanV3(58))
+        assertEquals("MCMXCIV", intToRomanV3(1994))
+        assertEquals("MMMDCCXLIX", intToRomanV3(3749))
+    }
+
+    @Test
+    fun testLongestSubarray() {
+        assertEquals(3, longestSubarray(intArrayOf(1, 1, 0, 1)))
+        assertEquals(5, longestSubarray(intArrayOf(0, 1, 1, 1, 0, 1, 1, 0, 1)))
+        assertEquals(2, longestSubarray(intArrayOf(1, 1, 1)))
+        assertEquals(7, longestSubarray(intArrayOf(1, 1, 1, 1, 1, 1, 1, 1)))
+        assertEquals(0, longestSubarray(intArrayOf(1)))
+    }
+
+    @Test
+    fun testPivotIndex() {
+        assertEquals(3, pivotIndex(intArrayOf(1,7,3,6,5,6)))
+        assertEquals(-1, pivotIndex(intArrayOf(1,2,3)))
+        assertEquals(0, pivotIndex(intArrayOf(2,1,-1)))
+        assertEquals(2, pivotIndex(intArrayOf(-1,-1,-1,-1,-1,0)))
     }
 
 }

@@ -3,6 +3,7 @@ package easyleetcodetasks
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
+
 internal class LeetCodeEasyTest {
 
     @Test
@@ -556,6 +557,16 @@ internal class LeetCodeEasyTest {
             "TAUXX",
             gcdOfStrings("TAUXXTAUXXTAUXXTAUXXTAUXX", "TAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXX")
         )
+
+        assertEquals("", gcdOfStrings2("ab", "aba"))
+        assertEquals("", gcdOfStrings2("LEET", "CODE"))
+        assertEquals("ab", gcdOfStrings2("ababab", "abab"))
+        assertEquals("abc", gcdOfStrings2("abcabc", "abc"))
+        assertEquals(
+            "TAUXX",
+            gcdOfStrings2("TAUXXTAUXXTAUXXTAUXXTAUXX", "TAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXXTAUXX")
+        )
+
     }
 
     @Test
@@ -569,8 +580,8 @@ internal class LeetCodeEasyTest {
         assertTrue(canPlaceFlowers(intArrayOf(1, 0, 0, 0, 1), 1))
         assertFalse(canPlaceFlowers(intArrayOf(1, 0, 0, 1), 1))
         assertFalse(canPlaceFlowers(intArrayOf(1, 0, 0, 0, 0, 1), 2))
-        assertTrue(canPlaceFlowers(intArrayOf(0,0,1,0), 1))
-        assertTrue(canPlaceFlowers(intArrayOf(1,0,0,0,0,0,1), 2))
+        assertTrue(canPlaceFlowers(intArrayOf(0, 0, 1, 0), 1))
+        assertTrue(canPlaceFlowers(intArrayOf(1, 0, 0, 0, 0, 0, 1), 2))
     }
 
     @Test
@@ -584,9 +595,9 @@ internal class LeetCodeEasyTest {
 
     @Test
     fun testMoveZeroes() {
-        val arr1 = intArrayOf(0,1,0,3,12)
+        val arr1 = intArrayOf(0, 1, 0, 3, 12)
         moveZeroes(arr1)
-        assertArrayEquals(intArrayOf(1,3,12,0,0), arr1)
+        assertArrayEquals(intArrayOf(1, 3, 12, 0, 0), arr1)
 
         val arr2 = intArrayOf(1)
         moveZeroes(arr2)
@@ -594,7 +605,105 @@ internal class LeetCodeEasyTest {
 
         val arr3 = intArrayOf(1, 0)
         moveZeroes(arr3)
-        assertArrayEquals( intArrayOf(1, 0), arr3)
+        assertArrayEquals(intArrayOf(1, 0), arr3)
     }
 
+    @Test
+    fun testIfSubsequence() {
+        assertTrue(isSubsequence("abc", "ahbgdc"))
+        assertFalse(isSubsequence("axc", "ahbgdc"))
+    }
+
+    @Test
+    fun testFindMaxAverage() {
+        assertEquals(12.75, findMaxAverage(intArrayOf(1, 12, -5, -6, 50, 3), 4))
+        assertEquals(5.0, findMaxAverage(intArrayOf(5), 1))
+        assertEquals(-1.00000, findMaxAverage(intArrayOf(-1), 1))
+    }
+
+    @Test
+    fun testLargestAltitude() {
+        assertEquals(1, largestAltitude(intArrayOf(-5, 1, 5, 0, -7)))
+        assertEquals(0, largestAltitude(intArrayOf(-4, -3, -2, -1, 4, 3, 2)))
+    }
+
+    @Test
+    fun generatePascalTriangle() {
+        assertEquals(listOf(listOf(1)), generate(1))
+        assertEquals(
+            listOf(
+                listOf(1),
+                listOf(1, 1),
+                listOf(1, 2, 1),
+                listOf(1, 3, 3, 1),
+                listOf(1, 4, 6, 4, 1)
+            ), generate(5)
+        )
+
+        assertEquals(listOf(listOf(1)), generatePascalTriangle(1))
+        assertEquals(
+            listOf(
+                listOf(1),
+                listOf(1, 1),
+                listOf(1, 2, 1),
+                listOf(1, 3, 3, 1),
+                listOf(1, 4, 6, 4, 1)
+            ), generatePascalTriangle(5)
+        )
+    }
+
+    @Test
+    fun testGetPascalTriangleRow() {
+        assertEquals(listOf(1, 3, 3, 1), getRow(3))
+        assertEquals(listOf(1), getRow(0))
+        assertEquals(listOf(1, 1), getRow(1))
+
+        assertEquals(listOf(1, 3, 3, 1), getRowUsingFold(3))
+        assertEquals(listOf(1), getRowUsingFold(0))
+        assertEquals(listOf(1, 1), getRowUsingFold(1))
+    }
+
+    @Test
+    fun testFizzBuzz() {
+        assertEquals(listOf("1", "2", "Fizz"), fizzBuzz(3))
+        assertEquals(
+            listOf(
+                "1",
+                "2",
+                "Fizz",
+                "4",
+                "Buzz",
+                "Fizz",
+                "7",
+                "8",
+                "Fizz",
+                "Buzz",
+                "11",
+                "Fizz",
+                "13",
+                "14",
+                "FizzBuzz"
+            ), fizzBuzz(15)
+        )
+        assertEquals(listOf("1", "2", "Fizz", "4", "Buzz"), fizzBuzz(5))
+    }
+
+    @Test
+    fun testIsHappy() {
+        assertTrue(isHappy(1))
+        assertTrue(isHappy(19))
+        assertFalse(isHappy(2))
+
+        assertTrue(isHappyTwoPointers(1))
+        assertTrue(isHappyTwoPointers(19))
+        assertFalse(isHappyTwoPointers(2))
+    }
+
+    @Test
+    fun testIsIsomorphic() {
+        assertTrue(isIsomorphic("egg", "add"))
+        assertFalse(isIsomorphic("foo", "bar"))
+        assertTrue(isIsomorphic("paper", "title"))
+        assertFalse(isIsomorphic("badc", "baba"))
+    }
 }
