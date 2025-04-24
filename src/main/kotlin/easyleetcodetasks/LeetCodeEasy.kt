@@ -949,11 +949,230 @@ fun isIsomorphic(s: String, t: String): Boolean {
 
     for (i in s.indices) {
         if (mapS.contains(s[i]) && mapS[s[i]] != t[i]
-            || mapT.contains(t[i]) && mapT[t[i]] != s[i]) return false
+            || mapT.contains(t[i]) && mapT[t[i]] != s[i]
+        ) return false
         mapS[s[i]] = t[i]
         mapT[t[i]] = s[i]
     }
     return true
 }
 
+//160. Intersection of Two Linked Lists
+fun getIntersectionNode(headA: ListNode?, headB: ListNode?): ListNode? {
+    var copyA = headA
+    var copyB = headB
 
+    if (headA == null || headB == null) return null
+
+    while (copyA != copyB) {
+        copyA = if (copyA == null) headB else copyA.next
+        copyB = if (copyB == null) headA else copyB.next
+    }
+    return copyA
+}
+
+//2215. Find the Difference of Two Arrays
+fun findDifference(nums1: IntArray, nums2: IntArray): List<List<Int>> {
+    return listOf(
+        nums1.toList().filter { !nums2.contains(it) }.distinct().toList(),
+        nums2.toList().filter { !nums1.contains(it) }.distinct().toList()
+    )
+}
+
+//1534. Count Good Triplets
+fun countGoodTriplets(arr: IntArray, a: Int, b: Int, c: Int): Int {
+    var count = 0
+
+    for (i in 0 until arr.size - 2) {
+        for (j in i + 1 until arr.size - 1) {
+            for (k in j + 1 until arr.size) {
+                if (abs(arr[i] - arr[j]) <= a
+                    && abs(arr[j] - arr[k]) <= b
+                    && abs(arr[i] - arr[k]) <= c
+                ) count++
+            }
+        }
+    }
+    return count
+}
+
+//1652. Defuse the Bomb
+fun decryptV1(code: IntArray, k: Int): IntArray {
+    val arr = code.copyOf(code.size)
+    when {
+        k == 0 -> code.mapIndexed { index, _ -> code[index] = 0 }
+        k > 0 -> {
+            for (i in code.indices) {
+                code[i] = calcNextK(i = i, k = k, arr = arr)
+            }
+        }
+
+        else -> {
+            for (i in code.indices) {
+                code[i] = calcPrevK(i = i, k = abs(k), arr = arr)
+            }
+        }
+    }
+    return code
+}
+
+private fun calcNextK(i: Int, k: Int, arr: IntArray): Int {
+    var counter = 0
+    var sum = 0
+    var index = i
+    val n = arr.size - 1
+    while (counter < k) {
+        sum += if (index + 1 > n) {
+            arr[index - n]
+        } else arr[index + 1]
+        counter++
+        index++
+    }
+    return sum
+
+}
+
+private fun calcPrevK(i: Int, k: Int, arr: IntArray): Int {
+    var counter = 0
+    var sum = 0
+    var index = i
+    val n = arr.size - 1
+    while (counter < k) {
+        sum += if (index - 1 < 0) {
+            arr[n - abs(index)]
+        } else arr[index - 1]
+        counter++
+        index--
+    }
+    return sum
+
+}
+
+fun decrypt(code: IntArray, k: Int): IntArray {
+    val n = code.size
+    val arr = Array(n) { 0 }.toIntArray()
+    for (i in code.indices) {
+        if (k > 0) {
+            for (j in i + 1..i + k) {
+                arr[i] += code[j % n]
+            }
+        } else if (k < 0) {
+            for (j in i - 1 + n downTo i - abs(k) + n) {
+                arr[i] += code[abs(j % n)]
+            }
+        }
+    }
+    return arr
+}
+
+// 169. Majority Element
+fun majorityElement(nums: IntArray): Int {
+    val n = nums.size / 2
+    val map = mutableMapOf<Int, Int>()
+
+    for (i in nums) {
+        val value = map.getOrDefault(i, 0)
+        map[i] = value + 1
+    }
+    return map.entries.first { it.value > n }.key
+}
+
+//2176. Count Equal and Divisible Pairs in an Array
+fun countPairs(nums: IntArray, k: Int): Int {
+    if (k == 0) return 0
+
+    var count = 0
+    for (i in nums.indices) {
+        for (j in i + 1 until nums.size) {
+            if (nums[i] == nums[j] && (i * j) % k == 0) {
+                count++
+            }
+        }
+    }
+    return count
+}
+
+//2206. Divide Array Into Equal Pairs
+fun divideArray(nums: IntArray): Boolean =
+    nums.asSequence().groupingBy { it }.eachCount().values.all { it % 2 == 0 }
+
+
+//1399. Count Largest Group
+fun countLargestGroup(n: Int): Int {
+    var maxSize = 0
+    val map = mutableMapOf<Int, Int>()
+    for (i in 1..n) {
+        var sum = 0
+        var index = i
+        while (index > 0) {
+            sum += index % 10
+            index /= 10
+        }
+        map[sum] = map.getOrDefault(sum, 0) + 1
+        maxSize = max(map.getOrDefault(sum, 0), maxSize)
+
+    }
+    return map.values.count { it == maxSize }
+}
+
+//383. Ransom Note
+fun canConstruct(ransomNote: String, magazine: String): Boolean {
+    val mapMagazine = mutableMapOf<Char, Int>()
+
+    for (char in magazine) {
+        mapMagazine[char] = mapMagazine.getOrDefault(char, 0) + 1
+    }
+
+    for (char in ransomNote) {
+        if (!mapMagazine.containsKey(char) || mapMagazine.getOrDefault(char, 0) < 1) return false
+        mapMagazine[char] = mapMagazine.getOrDefault(char, 0) - 1
+    }
+    return true
+}
+
+//290. Word Pattern
+fun wordPattern(pattern: String, s: String): Boolean {
+    val split = s.split(regex = Regex("\\s"))
+    if (split.size != pattern.length) return false
+    val map = mutableMapOf<Char, String>()
+    for (i in pattern.indices) {
+        if (map.containsKey(pattern[i]) && map[pattern[i]] != split[i]
+            || (!map.containsKey(pattern[i]) && map.containsValue(split[i]))
+        ) return false
+        map[pattern[i]] = split[i]
+    }
+    return true
+}
+
+//242. Valid Anagram
+fun isAnagram(s: String, t: String): Boolean {
+    if (s.length != t.length) return false
+    val letters = mutableMapOf<Char, Int>()
+    for (i in s) {
+        letters[i] = letters.getOrDefault(i, 0) + 1
+    }
+
+    for (i in t) {
+        if (!letters.containsKey(i) || letters.getOrDefault(i, 0) < 1) return false
+        letters[i] = letters.getOrDefault(i, 0) - 1
+    }
+    return true
+}
+
+//219. Contains Duplicate II
+fun containsNearbyDuplicate(nums: IntArray, k: Int): Boolean {
+    val map = mutableMapOf<Int, MutableList<Int>>()
+    for (i in nums.indices) {
+        if (!map.containsKey(nums[i])) {
+            map[nums[i]] = mutableListOf(i)
+        } else {
+            val list = map[nums[i]]
+            for (j in list!!) {
+                if (abs(j - i) <= k) return true
+            }
+            list.add(i)
+            map[nums[i]] = list
+        }
+    }
+    return false
+}

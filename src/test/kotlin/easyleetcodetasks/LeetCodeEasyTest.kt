@@ -706,4 +706,93 @@ internal class LeetCodeEasyTest {
         assertTrue(isIsomorphic("paper", "title"))
         assertFalse(isIsomorphic("badc", "baba"))
     }
+
+    @Test
+    fun testGetIntersectionNode() {
+        val nodeA = ListNode(4, ListNode(1, ListNode(8, ListNode(4, ListNode(5)))))
+        val nodeB = ListNode(5, ListNode(6, ListNode(1, ListNode(8, ListNode(4, ListNode(5))))))
+
+        assertEquals(nodeA.next, getIntersectionNode(nodeA, nodeB))
+    }
+
+    @Test
+    fun testFindArrayDiff() {
+        assertEquals(listOf(listOf(1, 3), listOf(4, 6)), findDifference(intArrayOf(1, 2, 3), intArrayOf(2, 4, 6)))
+        assertEquals(
+            listOf(listOf(3), listOf()),
+            findDifference(intArrayOf(1, 2, 3, 3), intArrayOf(1, 1, 2, 2))
+        )
+    }
+
+    @Test
+    fun testCountGoodTriplets() {
+        assertEquals(4, countGoodTriplets(arr = intArrayOf(3, 0, 1, 1, 9, 7), a = 7, b = 2, c = 3))
+        assertEquals(0, countGoodTriplets(arr = intArrayOf(1, 1, 2, 2, 3), a = 0, b = 0, c = 1))
+    }
+
+    @Test
+    fun testDecrypt() {
+        assertArrayEquals(intArrayOf(0, 0, 0, 0), decryptV1(intArrayOf(1, 2, 3, 4), 0))
+        assertArrayEquals(intArrayOf(12, 10, 16, 13), decryptV1(intArrayOf(5, 7, 1, 4), 3))
+        assertArrayEquals(intArrayOf(12, 5, 6, 13), decryptV1(intArrayOf(2, 4, 9, 3), -2))
+
+        assertArrayEquals(intArrayOf(0, 0, 0, 0), decrypt(intArrayOf(1, 2, 3, 4), 0))
+        assertArrayEquals(intArrayOf(12, 10, 16, 13), decrypt(intArrayOf(5, 7, 1, 4), 3))
+        assertArrayEquals(intArrayOf(12, 5, 6, 13), decrypt(intArrayOf(2, 4, 9, 3), -2))
+    }
+
+    @Test
+    fun testMajorityElement() {
+        assertEquals(3, majorityElement(intArrayOf(3, 2, 3)))
+        assertEquals(2, majorityElement(intArrayOf(2, 2, 1, 1, 1, 2, 2)))
+    }
+
+    @Test
+    fun testCountPairs() {
+        assertEquals(4, countPairs(intArrayOf(3, 1, 2, 2, 2, 1, 3), 2))
+        assertEquals(0, countPairs(intArrayOf(1, 2, 3, 4), k = 1))
+        assertEquals(0, countPairs(intArrayOf(1, 2, 3, 4), k = 0))
+        assertEquals(3, countPairs(intArrayOf(2, 2, 2), k = 2))
+    }
+
+    @Test
+    fun testDivideArray() {
+        assertTrue(divideArray(intArrayOf(2,2)))
+        assertFalse(divideArray(intArrayOf(1,2,3,4)))
+        assertTrue(divideArray(intArrayOf(3,2,3,2,2,2)))
+    }
+
+    @Test
+    fun testCountLargestGroup() {
+        assertEquals(4, countLargestGroup(13))
+    }
+
+    @Test
+    fun testCanConstruct() {
+        assertTrue(canConstruct(ransomNote = "a", magazine = "aab"))
+        assertTrue(canConstruct(ransomNote = "aa", magazine = "aab"))
+        assertFalse(canConstruct(ransomNote = "aa", magazine = "ab"))
+    }
+
+    @Test
+    fun testWordPattern() {
+        assertFalse(wordPattern("abba", "dog cat cat fish"))
+        assertTrue(wordPattern("abba", "dog cat cat dog"))
+        assertFalse(wordPattern("aaaa", "dog cat cat dog"))
+        assertFalse(wordPattern("abba", "dog dog dog dog"))
+    }
+
+
+    @Test
+    fun testIfAnagram() {
+        assertTrue(isAnagram(s = "anagram", t = "nagaram"))
+        assertFalse(isAnagram(s = "rat", t = "car"))
+    }
+
+    @Test
+    fun testContainsNearbyDuplicate() {
+        //assertTrue(containsNearbyDuplicate(intArrayOf(1,2,3,1), 3))
+        assertTrue(containsNearbyDuplicate(intArrayOf(1,0,1,1), 1))
+        assertFalse(containsNearbyDuplicate(intArrayOf(1,2,3,1,2,3), 2))
+    }
 }

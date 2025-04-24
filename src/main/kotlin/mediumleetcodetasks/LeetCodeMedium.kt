@@ -1,6 +1,8 @@
 package mediumleetcodetasks
 
 import java.util.*
+import kotlin.math.abs
+import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.min
 
@@ -569,4 +571,105 @@ fun longestSubarray(nums: IntArray): Int {
         max = max(max, r - l)
     }
     return max
+}
+
+//49. Group Anagrams
+fun groupAnagrams(strs: Array<String>): List<List<String>> {
+    val map = mutableMapOf<String, MutableList<String>>()
+
+    for (s in strs) {
+        val sorted = s.toCharArray().sorted().toString()
+
+        if (!map.containsKey(sorted)) {
+            map[sorted] = mutableListOf()
+        }
+        map.getOrDefault(sorted, mutableListOf()).add(s)
+    }
+
+    return map.values.toList()
+}
+
+//50. Pow(x, n)
+fun myPow(x: Double, n: Int): Double {
+    var nCopy = abs(n)
+    val isNegative = n < 0
+    var res = 1.0000
+    var xCopy = x
+    while (nCopy != 0) {
+        if (nCopy % 2 != 0) res *= xCopy
+        xCopy *= xCopy
+        nCopy /= 2
+    }
+    return if (isNegative) 1 / res else res
+}
+
+//1922. Count Good Numbers
+fun countGoodNumbers(n: Long): Int {
+    val mod = 1000000007
+    val even = ceil(n.toDouble() / 2).toLong()
+    val odd = n / 2
+    return (calcPow(5L, even) * calcPow(4L, odd) % mod).toInt()
+
+
+}
+
+private fun calcPow(x: Long, n: Long): Long {
+    val mod = 1000000007
+    var nCopy = n
+    var xCopy = x
+    var res = 1L
+
+    while (nCopy > 0L) {
+        if (nCopy % 2L != 0L) res = (res * xCopy) % mod
+        xCopy = (xCopy * xCopy) % mod
+        nCopy /= 2L
+    }
+    return res
+}
+
+//29. Divide Two Integers
+fun divide(dividend: Int, divisor: Int): Int {
+    if (divisor == dividend) return 1
+    if (divisor == -1 && dividend == Int.MIN_VALUE) return Int.MAX_VALUE
+    if (divisor == 1) return dividend
+    if (divisor == -1) return -dividend
+
+    val isNegative = dividend < 0 && divisor >= 0 || dividend >= 0 && divisor < 0
+    var count = 0
+
+    var dividendCopy = abs(dividend.toLong())
+    val divisorCopy = abs(divisor.toLong())
+
+    while (dividendCopy >= divisorCopy) {
+        dividendCopy -= divisorCopy
+        count++
+    }
+    return if (isNegative) 0 - count else count
+}
+
+//19. Remove Nth Node From End of List
+fun removeNthFromEnd(head: ListNode?, n: Int): ListNode? {
+    var node = head
+    val res: ListNode? = ListNode(0, node)
+    var copyRes = res
+    for (i in 0 until n) node = node?.next
+    while (node != null) {
+        node = node.next
+        copyRes = copyRes?.next
+
+    }
+    copyRes?.next = copyRes?.next?.next
+    return res?.next
+}
+
+//80. Remove Duplicates from Sorted Array II
+fun removeDuplicates(nums: IntArray): Int {
+    var k = 0
+    for (i in nums.indices) {
+        if (i == 0 || i == 1 || nums[k - 2] != nums[i]) {
+            nums[k] = nums[i]
+            k++
+        }
+    }
+    return k
 }

@@ -176,3 +176,26 @@ fun decode(str: String): List<String> {
     result.add(builder.toString())
     return result
 }
+
+fun findSimilarString(words: Array<String>): String {
+    val k = words[0].length
+
+    val firstDiffCol = (0 until k).firstOrNull { column ->
+        words.map { it[column] }.distinct().count() > 1
+    }
+    if (firstDiffCol == null) return words[0]
+    for (l in 'a'..'z') {
+        val r = words.first { it[firstDiffCol] != l }.toCharArray()
+        r[firstDiffCol] = l
+        val res = String(r)
+        if (words.all { findDiff(it, res) <= 1 }) return res
+    }
+    return ""
+
+}
+
+fun findDiff(str1: String, str2: String): Int =
+    str1.indices.count { str1[it] != str2[it] }
+
+
+

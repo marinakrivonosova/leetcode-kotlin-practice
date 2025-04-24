@@ -280,10 +280,38 @@ internal class LeetCodeMediumTest {
 
     @Test
     fun testPivotIndex() {
-        assertEquals(3, pivotIndex(intArrayOf(1,7,3,6,5,6)))
-        assertEquals(-1, pivotIndex(intArrayOf(1,2,3)))
-        assertEquals(0, pivotIndex(intArrayOf(2,1,-1)))
-        assertEquals(2, pivotIndex(intArrayOf(-1,-1,-1,-1,-1,0)))
+        assertEquals(3, pivotIndex(intArrayOf(1, 7, 3, 6, 5, 6)))
+        assertEquals(-1, pivotIndex(intArrayOf(1, 2, 3)))
+        assertEquals(0, pivotIndex(intArrayOf(2, 1, -1)))
+        assertEquals(2, pivotIndex(intArrayOf(-1, -1, -1, -1, -1, 0)))
+    }
+
+    @Test
+    fun testDivide() {
+        assertEquals(3, divide(10, 3))
+        assertEquals(-2, divide(7, -3))
+        assertEquals(1, divide(1, 1))
+    }
+
+    @Test
+    fun testPow() {
+        assertEquals(1024.0, myPow(2.0, 10))
+        assertEquals(0.25000, myPow(x = 2.0000, -2))
+        assertEquals(0.0, myPow(x = 2.0000, -2147483648))
+        assertEquals(1.0, myPow(x = -1.0000, -2147483648))
+    }
+
+    @Test
+    fun testCountGoodNumners() {
+        assertEquals(5, countGoodNumbers(1))
+        assertEquals(400, countGoodNumbers(4))
+        assertEquals(564908303, countGoodNumbers(50))
+    }
+
+    @Test
+    fun testRemoveDuplicatesII() {
+        assertEquals(5, removeDuplicates(intArrayOf(1,1,1,2,2,3)))
+        assertEquals(7, removeDuplicates(intArrayOf(0,0,1,1,1,1,2,3,3)))
     }
 
 }
